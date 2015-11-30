@@ -64,7 +64,7 @@ public class SwingControlDemo {
       JButton okButton = new JButton("OK");        
       JButton javaButton = new JButton("Submit", icon);
       JButton cancelButton = new JButton("Cancel", icon);
-      cancelButton.setHorizontalTextPosition(SwingConstants.LEFT);   
+      cancelButton.setHorizontalTextPosition(SwingConstants.RIGHT);   
 
       okButton.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent e) {
