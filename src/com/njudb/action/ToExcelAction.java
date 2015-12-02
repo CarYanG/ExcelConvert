@@ -46,6 +46,8 @@ public class ToExcelAction implements ActionListener {
 			System.out.println(outPut);
 			outPut = "第一个sheet共有：" + sheet.getRows() + "行" + sheet.getColumns() + "列<br>";
 			System.out.println(outPut);
+			
+			
 			outPut = "具体内容如下：";
 			for (int i = 0; i < sheet.getRows(); i++) {
 				for (int j = 0; j < sheet.getColumns(); j++) {

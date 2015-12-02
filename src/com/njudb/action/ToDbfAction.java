@@ -20,9 +20,8 @@ public class ToDbfAction implements ActionListener {
 			Toolkit.getDefaultToolkit().beep();
 			JOptionPane.showMessageDialog(null, "未导入文件", "错误", JOptionPane.INFORMATION_MESSAGE);
 		}
-
 		else {
-
+				
 		}
 	}
 
