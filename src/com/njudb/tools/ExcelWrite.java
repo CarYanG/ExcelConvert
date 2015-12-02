@@ -53,7 +53,7 @@ public class ExcelWrite {
 	public static void main(String args[]) {
 		ExcelWrite ew = new ExcelWrite();
 		
-		ew.createExcel();
+		
 	}
 
 }
