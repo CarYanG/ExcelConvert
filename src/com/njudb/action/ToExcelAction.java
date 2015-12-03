@@ -1,11 +1,14 @@
 package com.njudb.action;
 
+import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import jxl.Cell;
@@ -15,6 +18,7 @@ import jxl.read.biff.BiffException;
 
 import com.njudb.layout.BodyPanel;
 import com.njudb.layout.MainGUI;
+import com.njudb.tools.ExcelOperater;
 
 public class ToExcelAction implements ActionListener {
 
@@ -26,35 +30,40 @@ public class ToExcelAction implements ActionListener {
 		if (BodyPanel.filepath.getText() == "" || BodyPanel.filepath.equals(null)) {
 			Toolkit.getDefaultToolkit().beep();
 			JOptionPane.showMessageDialog(null, "未导入文件", "错误", JOptionPane.INFORMATION_MESSAGE);
-		} else {
+		} 
+		else {
+			
+			 JFileChooser jfc = new JFileChooser();  
+             jfc.setDialogTitle("请选择要导出目录");  
+             jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);  
+             int result = jfc.showOpenDialog(null);  
+             File dirFile = null;
+             if(JFileChooser.APPROVE_OPTION == result) {
+            	 dirFile = jfc.getSelectedFile();  
+            	 System.out.println("目录位置："+dirFile.getAbsolutePath());
+                 if(!dirFile.isDirectory()) {  
+                     JOptionPane.showMessageDialog(null, "你选择的目录不存在");  
+                     return ;  
+                 }  
+             }
+             
 			String inputFilePath = BodyPanel.filepath.getText().substring(5);
-			System.out.println(inputFilePath);
-			File file = new File(inputFilePath);// 根据文件名创建一个文件对象
-			Workbook wb = null;
+			System.out.println("输入文件绝对路径:"+inputFilePath);
+			
+			String outputFilePath= dirFile.getAbsolutePath()+"test.xls";
+			System.out.println("输出文件绝对路径:"+outputFilePath);
+
+			
+//			ExcelOperater eo=new ExcelOperater();
+//			
+//			eo.readAndWriteExcel(inputFilePath, outputFilePath);
+			
 			try {
-				wb = Workbook.getWorkbook(file);// 从文件流中取得Excel工作区对象
-			} catch (BiffException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				Desktop.getDesktop().open(new java.io.File(new File(inputFilePath).getAbsolutePath()));
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}
-			Sheet sheet = wb.getSheet(0); // 从工作区中取得页，取得这个对象的时候既可以用名称来获得，也可以用序号。
-			String outPut = "";
-			outPut = outPut + "第一个sheet的名称为：" + sheet.getName();
-			System.out.println(outPut);
-			outPut = "第一个sheet共有：" + sheet.getRows() + "行" + sheet.getColumns() + "列<br>";
-			System.out.println(outPut);
-			
-			
-			outPut = "具体内容如下：";
-			for (int i = 0; i < sheet.getRows(); i++) {
-				for (int j = 0; j < sheet.getColumns(); j++) {
-					Cell cell = sheet.getCell(j, i);
-					outPut = outPut + cell.getContents() + " ";
-				}
-				outPut = outPut + "<br>";
+				
 			}
 
 		}
