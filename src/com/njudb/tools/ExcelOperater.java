@@ -22,7 +22,7 @@ public class ExcelOperater
 	public jxl.Workbook readwb = null;
 
 	// 从excel文件读取数据；生成新的excel文件
-	public void readAndWriteExcel(String inputFilepath, String outputFilepath) {
+	public void readAndWriteExcel(String inputFilepath, String outputFilepath,String columns[]) {
 		try {
 			// 构建Workbook对象, 只读Workbook对象
 
@@ -60,43 +60,40 @@ public class ExcelOperater
 
 				}
 				System.out.println();
+				
+				
+				
 
 				// 利用已经创建的Excel工作薄,创建新的可写入的Excel工作薄
 
 				jxl.write.WritableWorkbook wwb = Workbook.createWorkbook(new File(
 
-						outputFilepath), readwb);
+						outputFilepath));
 
 				// 读取第一张工作表
 
-				jxl.write.WritableSheet ws = wwb.getSheet(0);
+				jxl.write.WritableSheet ws = wwb.createSheet("First Sheet",0);
 
-				// 获得第一个单元格对象
+				Label BMBH=new Label(0,0,"BMBH");
+				ws.addCell(BMBH);
+				
+				Label XMBH=new Label(1,0,"XMBH");
+				ws.addCell(XMBH);
+				
+				Label EDBH=new Label(0,2,"EDBH");
+				ws.addCell(EDBH);
+				
+				Label LURQ=new Label(0,3,"LURQ");
+				ws.addCell(LURQ);
+				
+				Label ZY=new Label(0,4,"ZY");
+				ws.addCell(ZY);
+				
+				Label EDJE=new Label(0,5,"EDJE");
+				ws.addCell(EDJE);				
+				
 
-				jxl.write.WritableCell wc = ws.getWritableCell(0, 0);
 
-				// 判断单元格的类型, 做出相应的转化
-
-				if (wc.getType() == CellType.LABEL)
-
-				{
-
-					Label l = (Label) wc;
-
-					l.setString("新学号");
-
-				}
-				jxl.write.WritableCell wc2 = ws.getWritableCell(1, 0);
-				if (wc2.getType() == CellType.LABEL)
-
-				{
-
-					Label l = (Label) wc2;
-
-					l.setString("新姓名");
-
-				}
-				// 写入Excel对象
 
 				wwb.write();
 

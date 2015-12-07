@@ -19,6 +19,14 @@ public class BodyPanel extends JPanel {
 	public static String column4;
 	public static String column5;
 	public static String column6;
+	
+	public  static JTextField inputColumn1;
+	public  static JTextField inputColumn2;
+	public  static JTextField inputColumn3;
+	public  static JTextField inputColumn4;
+	public  static JTextField inputColumn5;
+	public  static JTextField inputColumn6;
+	
 
 	public BodyPanel() {
 		prepareGUI();
@@ -36,12 +44,12 @@ public class BodyPanel extends JPanel {
 		JLabel prefix5 = new JLabel("选择文件中的第", JLabel.LEFT);
 		JLabel prefix6 = new JLabel("选择文件中的第", JLabel.LEFT);
 
-		final JTextField inputColumn1 = new JTextField(3);
-		final JTextField inputColumn2 = new JTextField(3);
-		final JTextField inputColumn3 = new JTextField(3);
-		final JTextField inputColumn4 = new JTextField(3);
-		final JTextField inputColumn5 = new JTextField(3);
-		final JTextField inputColumn6 = new JTextField(3);
+		  inputColumn1 = new JTextField(3);
+		  inputColumn2 = new JTextField(3);
+		  inputColumn3 = new JTextField(3);
+		  inputColumn4 = new JTextField(3);
+		  inputColumn5 = new JTextField(3);
+		  inputColumn6 = new JTextField(3);
 
 		JLabel suffix1 = new JLabel("列作为部门编号（BMBH）");
 		JLabel suffix2 = new JLabel("列作为项目编号（XMBH）");
@@ -137,7 +145,6 @@ public class BodyPanel extends JPanel {
 		gbc.gridy = 6;
 		gbc.gridwidth = 3;
 		panel.add(filepath, gbc);
-
 		this.add(panel);
 	}
 }
