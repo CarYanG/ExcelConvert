@@ -1,20 +1,20 @@
 package com.njudb.tools;
 
 import java.io.File;
-
 import java.io.FileInputStream;
-
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
+
+import javax.xml.transform.Templates;
 
 import jxl.Cell;
-
 import jxl.CellType;
-
 import jxl.Sheet;
-
 import jxl.Workbook;
-
 import jxl.write.Label;
+import jxl.write.WritableCell;
+import jxl.write.WritableSheet;
 
 public class ExcelOperater
 
@@ -45,60 +45,64 @@ public class ExcelOperater
 			// 获取Sheet表中所包含的总行数
 
 			int rsRows = readsheet.getRows();
+			
+			
+			
+			// 利用已经创建的Excel工作薄,创建新的可写入的Excel工作薄
+			
+			OutputStream outputStream = new FileOutputStream(outputFilepath);
+
+			jxl.write.WritableWorkbook wwb = Workbook.createWorkbook(outputStream);
+
+			// 读取第一张工作表
+
+			jxl.write.WritableSheet ws = wwb.createSheet("First Sheet",0);
+
+			Label BMBH=new Label(0,0,"BMBH");
+			ws.addCell(BMBH);
+			
+			Label XMBH=new Label(1,0,"XMBH");
+			ws.addCell(XMBH);
+			
+			Label EDBH=new Label(2,0,"EDBH");
+			ws.addCell(EDBH);
+			
+			Label LURQ=new Label(3,0,"LURQ");
+			ws.addCell(LURQ);
+			
+			Label ZY=new Label(4,0,"ZY");
+			ws.addCell(ZY);
+			
+			
+			//格式改为浮点型
+			Label EDJE=new Label(5,0,"EDJE");
+			ws.addCell(EDJE);				
+			
 
 			// 获取指定单元格的对象引用
 
-			for (int i = 0; i < rsRows; i++)
+			for (int i = 1; i < rsRows; i++)  
 			{
-				for (int j = 0; j < rsColumns; j++)
+				for(int j= 0;j<columns.length;j++){
+					
+					if (!(columns[j]==""||columns[j].equals("")) ){
+						Cell cell =  readsheet.getCell(Integer.valueOf(columns[j]).intValue(), i);
+						
+						Label temp=new Label(j,i,cell.getContents());
+						
+						ws.addCell(temp);
+					}
 
-				{
-
-					Cell cell = readsheet.getCell(j, i);
-
-					System.out.print(cell.getContents() + " ");
-
+					
 				}
-				System.out.println();
 				
-				
-				
-
-				// 利用已经创建的Excel工作薄,创建新的可写入的Excel工作薄
-
-				jxl.write.WritableWorkbook wwb = Workbook.createWorkbook(new File(
-
-						outputFilepath));
-
-				// 读取第一张工作表
-
-				jxl.write.WritableSheet ws = wwb.createSheet("First Sheet",0);
-
-				Label BMBH=new Label(0,0,"BMBH");
-				ws.addCell(BMBH);
-				
-				Label XMBH=new Label(1,0,"XMBH");
-				ws.addCell(XMBH);
-				
-				Label EDBH=new Label(0,2,"EDBH");
-				ws.addCell(EDBH);
-				
-				Label LURQ=new Label(0,3,"LURQ");
-				ws.addCell(LURQ);
-				
-				Label ZY=new Label(0,4,"ZY");
-				ws.addCell(ZY);
-				
-				Label EDJE=new Label(0,5,"EDJE");
-				ws.addCell(EDJE);				
-				
-
-
-
-				wwb.write();
-
-				wwb.close();
 			}
+
+			wwb.write();
+
+			wwb.close();
+			outputStream.close();
+			instream.close();
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -106,7 +110,7 @@ public class ExcelOperater
 		} finally {
 
 			readwb.close();
-
+			
 		}
 	}
 
